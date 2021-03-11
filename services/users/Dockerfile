@@ -1,6 +1,5 @@
 # base image
-FROM python:3.7.2-alpine
-
+FROM python:3.7.3-alpine3.10
 # new
 # install dependencies
 RUN apk update && \
@@ -9,6 +8,7 @@ RUN apk update && \
     apk add netcat-openbsd
 
 # set working directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # add and install requirements
