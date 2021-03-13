@@ -16,6 +16,7 @@ COV = coverage.coverage(
 )
 COV.start()
 
+
 app = create_app()  # new
 cli = FlaskGroup(create_app=create_app)  # new
 
