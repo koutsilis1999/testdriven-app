@@ -49,5 +49,6 @@ class TestProductionConfig(TestCase):
         self.assertFalse(app.config["TESTING"])
         self.assertFalse(app.config['DEBUG_TB_ENABLED'])
 
+
 if __name__ == "__main__":
     unittest.main()
