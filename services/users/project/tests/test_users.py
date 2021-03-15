@@ -1,16 +1,8 @@
 import json
 import unittest
 
-from project import db
-from project.api.models import User
 from project.tests.base import BaseTestCase
-
-
-def add_user(username, email):
-    user = User(username=username, email=email)
-    db.session.add(user)
-    db.session.commit()
-    return user
+from project.tests.utils import add_user
 
 
 class TestUserService(BaseTestCase):
@@ -126,10 +118,12 @@ class TestUserService(BaseTestCase):
             data = json.loads(resposne.data.decode())
             self.assertEqual(resposne.status_code, 200)
             self.assertEqual(len(data["data"]["users"]), 2)
-            self.assertIn("michael", data["data"]["users"][0]["username"])
+            self.assertIn("michael",
+                          data["data"]["users"][0]["username"])
             self.assertIn("michael@mherman.org",
                           data["data"]["users"][0]["email"])
-            self.assertIn("fletcher", data["data"]["users"][1]["username"])
+            self.assertIn("fletcher",
+                          data["data"]["users"][1]["username"])
             self.assertIn("fletcher@notreal.com",
                           data["data"]["users"][1]["email"])
             self.assertIn("success", data["status"])
