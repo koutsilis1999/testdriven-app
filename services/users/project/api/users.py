@@ -1,3 +1,4 @@
+from project.api.utils import authenticate_restful
 from project.api import auth
 from flask import Blueprint, request, render_template
 from flask_restful import Resource, Api
@@ -16,7 +17,8 @@ def index():
         username = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
-        db.session.add(User(username=username, email=email, password=password))  # new
+        db.session.add(User(username=username, email=email,
+                            password=password))  # new
         db.session.commit()
     users = User.query.all()
     return render_template("index.html", users=users)
@@ -28,6 +30,8 @@ class UsersPing(Resource):
 
 
 class UsersList(Resource):
+
+    @authenticate_restful
     def post(self):
         post_data = request.get_json()
         response_object = {"status": "fail", "message": "Invalid payload."}
@@ -40,7 +44,8 @@ class UsersList(Resource):
             user = User.query.filter_by(email=email).first()
             if not user:
                 db.session.add(
-                    User(username=username, email=email, password=password)  # new
+                    User(username=username, email=email,
+                         password=password)  # new
                 )
                 db.session.commit()
                 response_object["status"] = "success"
