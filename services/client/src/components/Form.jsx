@@ -1,17 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Redirect } from "react-router";
 
 const Form = (props) => {
+  if (props.isAuthenticated) {
+    return <Redirect to="/" />;
+  }
   return (
     <div>
-      {props.formType === 'Login' &&
-        <h1 className="title is-1">Log In</h1>
-      }
-      {props.formType === 'Register' &&
+      {props.formType === "Login" && <h1 className="title is-1">Log In</h1>}
+      {props.formType === "Register" && (
         <h1 className="title is-1">Register</h1>
-      }
-      <hr/><br/>
+      )}
+      <hr />
+      <br />
       <form onSubmit={(event) => props.handleUserFormSubmit(event)}>
-        {props.formType === 'Register' &&
+        {props.formType === "Register" && (
           <div className="field">
             <input
               name="username"
@@ -23,7 +26,7 @@ const Form = (props) => {
               onChange={props.handleFormChange}
             />
           </div>
-        }
+        )}
         <div className="field">
           <input
             name="email"
@@ -53,7 +56,7 @@ const Form = (props) => {
         />
       </form>
     </div>
-  )
+  );
 };
 
 export default Form;
