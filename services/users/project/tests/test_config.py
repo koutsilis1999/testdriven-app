@@ -21,9 +21,7 @@ class TestDevelopmentConfig(TestCase):
             os.environ.get("DATABASE_URL")
         )
         self.assertTrue(app.config["DEBUG_TB_ENABLED"])
-        self.assertTrue(app.config["BCRYPT_LOG_ROUNDS"] == 4)
-
-
+        self.assertTrue(app.config["BCRYPT_LOG_ROUNDS"] == 4)        
 class TestTestingConfig(TestCase):
     def create_app(self):
         app.config.from_object("project.config.TestingConfig")
