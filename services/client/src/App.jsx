@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 
 import UserStatus from "./components/UserStatus";
 import UsersList from "./components/UsersList";
-import AddUser from "./components/AddUser";
 import NavBar from "./components/NavBar";
 import Logout from "./components/Logout";
 import About from "./components/About";
@@ -121,22 +120,7 @@ class App extends Component {
                   <Route
                     exact
                     path="/"
-                    render={() => (
-                      <div>
-                        <h1 className="title is-1">All Users</h1>
-                        <hr />
-                        <br />
-                        <AddUser
-                          username={this.state.username}
-                          email={this.state.email}
-                          addUser={this.addUser}
-                          handleChange={this.handleChange}
-                        />
-                        <br />
-                        <br />
-                        <UsersList users={this.state.users} />
-                      </div>
-                    )}
+                    render={() => <UsersList users={this.state.users} />}
                   />
                   <Route exact path="/about" component={About} />
                   <Route

@@ -1,5 +1,6 @@
 from flask import current_app
 from sqlalchemy.sql import func
+from sqlalchemy.sql.expression import false
 
 from project import db, bcrypt
 import datetime
@@ -16,13 +17,15 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)  # new
     active = db.Column(db.Boolean(), default=True, nullable=False)
     created_date = db.Column(db.DateTime, default=func.now(), nullable=False)
+    admin = db.Column(db.Boolean, default=False, nullable=False)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, admin=False):
         self.username = username
         self.email = email
         self.password = bcrypt.generate_password_hash(
             password, current_app.config.get("BCRYPT_LOG_ROUNDS")
         ).decode()
+        self.admin = admin
 
     def encode_auth_token(self, user_id):
         """Generates the auth token"""
@@ -49,7 +52,8 @@ class User(db.Model):
         Decodes the auth token - :param auth_token: - :return: integer|string
         """
         try:
-            payload = jwt.decode(auth_token, current_app.config.get("SECRET_KEY"))
+            payload = jwt.decode(
+                auth_token, current_app.config.get("SECRET_KEY"))
             return payload["sub"]
         except jwt.ExpiredSignatureError:
             return "Signature expired. Please log in again."
@@ -62,4 +66,5 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "active": self.active,
+            'admin': self.admin,
         }
