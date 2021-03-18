@@ -1,4 +1,4 @@
-from flask import Blueprint, json, jsonify, request
+from flask import Blueprint, jsonify, request
 from sqlalchemy import exc, or_
 
 from project.api.models import User
@@ -70,13 +70,11 @@ def login_user():
         return jsonify(response_object), 500
 
 
-@auth_blueprint.route('/auth/logout', methods=['GET'])
+@auth_blueprint.route("/auth/logout", methods=["GET"])
 @authenticate
 def logout_user(resp):
-    response_object = {
-        'status': 'success',
-        'message': 'Successfully logged out.'
-    }
+    response_object = {"status": "success",
+                       "message": "Successfully logged out."}
     return jsonify(response_object), 200
 
 
@@ -85,8 +83,8 @@ def logout_user(resp):
 def get_user_status(resp):
     user = User.query.filter_by(id=resp).first()
     response_object = {
-        'status': 'success',
-        'message': 'success',
-        'data': user.to_json()
+        "status": "success",
+        "message": "success",
+        "data": user.to_json(),
     }
     return jsonify(response_object), 200

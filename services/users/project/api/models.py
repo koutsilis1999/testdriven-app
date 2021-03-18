@@ -1,6 +1,5 @@
 from flask import current_app
 from sqlalchemy.sql import func
-from sqlalchemy.sql.expression import false
 
 from project import db, bcrypt
 import datetime
@@ -41,7 +40,9 @@ class User(db.Model):
                 "sub": user_id,
             }
             return jwt.encode(
-                payload, current_app.config.get("SECRET_KEY"), algorithm="HS256"
+                payload,
+                current_app.config.get("SECRET_KEY"),
+                algorithm="HS256"
             )
         except Exception as e:
             return e
@@ -53,7 +54,8 @@ class User(db.Model):
         """
         try:
             payload = jwt.decode(
-                auth_token, current_app.config.get("SECRET_KEY"))
+                auth_token,
+                current_app.config.get("SECRET_KEY"))
             return payload["sub"]
         except jwt.ExpiredSignatureError:
             return "Signature expired. Please log in again."
@@ -66,5 +68,5 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "active": self.active,
-            'admin': self.admin,
+            "admin": self.admin,
         }

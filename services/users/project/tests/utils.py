@@ -10,10 +10,7 @@ def add_user(username, email, password):
 
 
 def add_admin(username, email, password):
-    user = User(
-        username=username, email=email,
-        password=password, admin=True
-    )
+    user = User(username=username, email=email, password=password, admin=True)
     db.session.add(user)
     db.session.commit()
     return user
