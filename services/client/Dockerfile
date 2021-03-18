@@ -2,6 +2,7 @@
 FROM node:10.19.0-alpine
 
 # set working directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # add `/usr/src/app/node_modules/.bin` to $PATH
