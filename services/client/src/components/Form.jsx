@@ -1,62 +1,68 @@
-import React from "react";
-import { Redirect } from "react-router";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
-const Form = (props) => {
-  if (props.isAuthenticated) {
-    return <Redirect to="/" />;
-  }
-  return (
-    <div>
-      {props.formType === "Login" && <h1 className="title is-1">Log In</h1>}
-      {props.formType === "Register" && (
-        <h1 className="title is-1">Register</h1>
-      )}
-      <hr />
-      <br />
-      <form onSubmit={(event) => props.handleUserFormSubmit(event)}>
-        {props.formType === "Register" && (
+class Form extends Component {
+  constructor (props) {
+    super(props);
+  };
+  render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to='/' />;
+    };
+    return (
+      <div>
+        {this.props.formType === 'Login' &&
+          <h1 className="title is-1">Log In</h1>
+        }
+        {this.props.formType === 'Register' &&
+          <h1 className="title is-1">Register</h1>
+        }
+        <hr/><br/>
+        <form onSubmit={(event) => this.props.handleUserFormSubmit(event)}>
+          {this.props.formType === 'Register' &&
+            <div className="field">
+              <input
+                name="username"
+                className="input is-medium"
+                type="text"
+                placeholder="Enter a username"
+                required
+                value={this.props.formData.username}
+                onChange={this.props.handleFormChange}
+              />
+            </div>
+          }
           <div className="field">
             <input
-              name="username"
+              name="email"
               className="input is-medium"
-              type="text"
-              placeholder="Enter a username"
+              type="email"
+              placeholder="Enter an email address"
               required
-              value={props.formData.username}
-              onChange={props.handleFormChange}
+              value={this.props.formData.email}
+              onChange={this.props.handleFormChange}
             />
           </div>
-        )}
-        <div className="field">
+          <div className="field">
+            <input
+              name="password"
+              className="input is-medium"
+              type="password"
+              placeholder="Enter a password"
+              required
+              value={this.props.formData.password}
+              onChange={this.props.handleFormChange}
+            />
+          </div>
           <input
-            name="email"
-            className="input is-medium"
-            type="email"
-            placeholder="Enter an email address"
-            required
-            value={props.formData.email}
-            onChange={props.handleFormChange}
+            type="submit"
+            className="button is-primary is-medium is-fullwidth"
+            value="Submit"
           />
-        </div>
-        <div className="field">
-          <input
-            name="password"
-            className="input is-medium"
-            type="password"
-            placeholder="Enter a password"
-            required
-            value={props.formData.password}
-            onChange={props.handleFormChange}
-          />
-        </div>
-        <input
-          type="submit"
-          className="button is-primary is-medium is-fullwidth"
-          value="Submit"
-        />
-      </form>
-    </div>
-  );
+        </form>
+      </div>
+    )
+  };
 };
 
 export default Form;

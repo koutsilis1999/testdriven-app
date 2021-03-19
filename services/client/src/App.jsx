@@ -33,6 +33,11 @@ class App extends Component {
   componentDidMount() {
     this.getUsers();
   }
+  componentWillMount() {
+    if (window.localStorage.getItem("authToken")) {
+      this.setState({ isAuthenticated: true });
+    }
+  }
   getUsers() {
     axios
       .get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
