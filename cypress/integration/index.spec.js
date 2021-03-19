@@ -7,6 +7,7 @@ describe("Index", () => {
       .get('a').not('User Status')
       .get('a').not('Log Out')
       .get('a').contains('Register')
-      .get('a').contains('Log In');
+      .get('a').contains('Log In')
+      .not('.notification.is-success');
   });
 });

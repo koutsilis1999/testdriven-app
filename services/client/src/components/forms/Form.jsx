@@ -22,14 +22,14 @@ class Form extends Component {
   }
   componentDidMount() {
     this.clearForm();
-    this.validateForm();  // new
-  };
+    this.validateForm(); // new
+  }
   componentWillReceiveProps(nextProps) {
     if (this.props.formType !== nextProps.formType) {
       this.clearForm();
-      this.validateForm();  // new
-    };
-  };
+      this.validateForm(); // new
+    }
+  }
   clearForm() {
     this.setState({
       formData: { username: "", email: "", password: "" },
@@ -61,7 +61,12 @@ class Form extends Component {
         this.props.loginUser(res.data.auth_token);
       })
       .catch((err) => {
-        console.log(err);
+        if (formType === "Login") {
+          this.props.createMessage("User does not exist.", "danger");
+        }
+        if (formType === "Register") {
+          this.props.createMessage("That user already exists.", "danger");
+        }
       });
   }
   validateForm() {
