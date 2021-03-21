@@ -12,41 +12,41 @@ inspect() {
 
 # run server-side tests
 server() {
-  docker-compose up -d --build
-  docker-compose exec users python manage.py test
+  sudo docker-compose up -d --build
+  sudo docker-compose exec users python manage.py test
   inspect $? users
-  docker-compose exec users flake8 project
+  sudo docker-compose exec users flake8 project
   inspect $? users-lint
   docker-compose down
 }
 
 # run client-side tests
 client() {
-  docker-compose up -d --build
-  docker-compose exec client npm test -- --coverage
+  sudo docker-compose up -d --build
+  sudo docker-compose exec client npm test -- --coverage
   inspect $? client
-  docker-compose down
+  sudo docker-compose down
 }
 
 # run e2e tests
 e2e() {
-  docker-compose -f docker-compose-prod.yml up -d --build
-  docker-compose -f docker-compose-prod.yml exec users python manage.py recreate_db
+  sudo docker-compose -f docker-compose-prod.yml up -d --build
+  sudo docker-compose -f docker-compose-prod.yml exec users python manage.py recreate_db
   ./node_modules/.bin/cypress run --config baseUrl=http://localhost
   inspect $? e2e
-  docker-compose -f docker-compose-prod.yml down
+  sudo docker-compose -f docker-compose-prod.yml down
 }
 
 # run all tests
 all() {
-  docker-compose up -d --build
-  docker-compose exec users python manage.py test
+  sudo docker-compose up -d --build
+  sudo docker-compose exec users python manage.py test
   inspect $? users
-  docker-compose exec users flake8 project
+  sudo docker-compose exec users flake8 project
   inspect $? users-lint
-  docker-compose exec client npm test -- --coverage
+  sudo docker-compose exec client npm test -- --coverage
   inspect $? client
-  docker-compose down
+  sudo docker-compose down
   e2e
 }
 
