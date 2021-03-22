@@ -6,6 +6,7 @@
 FROM node:11.12.0-alpine as builder
 
 # set working directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # install app dependencies

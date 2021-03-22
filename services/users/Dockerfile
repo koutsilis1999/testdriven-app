@@ -7,6 +7,7 @@ RUN apt-get update && \
     apt-get clean
 
 # set working directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # add and install requirements
