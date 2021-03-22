@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const UsersList = (props) => {
   return (
@@ -35,4 +35,4 @@ const UsersList = (props) => {
   )
 };
 
-export default UsersList;
+export default UsersList

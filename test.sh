@@ -17,7 +17,7 @@ server() {
   inspect $? users
   sudo docker-compose exec users flake8 project
   inspect $? users-lint
-  docker-compose down
+  sudo docker-compose down
 }
 
 # run client-side tests
