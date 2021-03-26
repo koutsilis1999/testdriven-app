@@ -27,6 +27,7 @@ before_script:
   - export REACT_APP_USERS_SERVICE_URL=http://127.0.0.1
   - npm install -g npm@latest 
   - npm install -g fs-extra@latest
+  - RUN npm audit fix --force
   - npm install
 
 script:
