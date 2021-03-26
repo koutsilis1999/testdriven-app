@@ -28,7 +28,6 @@ before_script:
   - npm install -g npm@latest 
   - npm install n -g
   - n latest
-  - npm install -g fs-extra@latest
   - npm audit fix --force
   - npm install
 
