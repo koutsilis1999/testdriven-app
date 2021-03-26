@@ -3,11 +3,12 @@
 if [ -z "$TRAVIS_PULL_REQUEST" ] || [ "$TRAVIS_PULL_REQUEST" == "false" ]
 then
 
-  # new
   if [[ "$TRAVIS_BRANCH" == "staging" ]]; then
     export DOCKER_ENV=stage
+    export REACT_APP_USERS_SERVICE_URL="http://testdriven-staging-alb-1752140886.us-west-1.elb.amazonaws.com"
   elif [[ "$TRAVIS_BRANCH" == "production" ]]; then
     export DOCKER_ENV=prod
+    export REACT_APP_USERS_SERVICE_URL="http://testdriven-production-alb-1003607086.us-west-1.elb.amazonaws.com"
   fi
 
   if [ "$TRAVIS_BRANCH" == "staging" ] || \
@@ -27,20 +28,20 @@ then
      [ "$TRAVIS_BRANCH" == "production" ]
   then
     # users
-    sudo docker build $USERS_REPO -t $USERS:$COMMIT -f Dockerfile-$DOCKER_ENV  # new
-    sudo docker tag $USERS:$COMMIT $REPO/$USERS:$TAG
-    sudo docker push $REPO/$USERS:$TAG
-    # users db
-    sudo docker build $USERS_DB_REPO -t $USERS_DB:$COMMIT -f Dockerfile
-    sudo docker tag $USERS_DB:$COMMIT $REPO/$USERS_DB:$TAG
-    sudo docker push $REPO/$USERS_DB:$TAG
+    docker build $USERS_REPO -t $USERS:$COMMIT -f Dockerfile-$DOCKER_ENV
+    docker tag $USERS:$COMMIT $REPO/$USERS:$TAG
+    docker push $REPO/$USERS:$TAG
+    # # users db
+    # docker build $USERS_DB_REPO -t $USERS_DB:$COMMIT -f Dockerfile
+    # docker tag $USERS_DB:$COMMIT $REPO/$USERS_DB:$TAG
+    # docker push $REPO/$USERS_DB:$TAG
     # client
-    sudo docker build $CLIENT_REPO -t $CLIENT:$COMMIT -f Dockerfile-$DOCKER_ENV --build-arg REACT_APP_USERS_SERVICE_URL=TBD # new
-    sudo docker tag $CLIENT:$COMMIT $REPO/$CLIENT:$TAG
-    sudo docker push $REPO/$CLIENT:$TAG
+    docker build $CLIENT_REPO -t $CLIENT:$COMMIT -f Dockerfile-$DOCKER_ENV --build-arg REACT_APP_USERS_SERVICE_URL=$REACT_APP_USERS_SERVICE_URL
+    docker tag $CLIENT:$COMMIT $REPO/$CLIENT:$TAG
+    docker push $REPO/$CLIENT:$TAG
     # swagger
-    sudo docker build $SWAGGER_REPO -t $SWAGGER:$COMMIT -f Dockerfile-$DOCKER_ENV  # new
-    sudo docker tag $SWAGGER:$COMMIT $REPO/$SWAGGER:$TAG
-    sudo docker push $REPO/$SWAGGER:$TAG
+    docker build $SWAGGER_REPO -t $SWAGGER:$COMMIT -f Dockerfile-$DOCKER_ENV
+    docker tag $SWAGGER:$COMMIT $REPO/$SWAGGER:$TAG
+    docker push $REPO/$SWAGGER:$TAG
   fi
 fi
