@@ -26,9 +26,9 @@ before_install:
 before_script:
   - export REACT_APP_USERS_SERVICE_URL=http://127.0.0.1
   - npm install -g npm@latest 
-  - npm install n -g
-  - n latest
-  - npm audit fix --force
+  - sudo npm install n -g
+  - sudo n latest
+  - sudo npm audit fix --force
   - npm install
 
 script:
