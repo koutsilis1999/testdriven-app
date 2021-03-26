@@ -1,7 +1,11 @@
 sudo: required
 
 services:
+
   - docker
+language: node_js
+node_js:
+  - 14
 
 env:
   DOCKER_COMPOSE_VERSION: 1.28.5
@@ -22,8 +26,6 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - sudo npm install n -g
-  - sudo n latest
 
 before_script:
   - export REACT_APP_USERS_SERVICE_URL=http://127.0.0.1
