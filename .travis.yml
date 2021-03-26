@@ -38,5 +38,5 @@ script:
 
 after_success:
   - bash ./docker-push.sh
-  - bash ./docker-depoly-stage.sh
-  - bash ./docker-depoly-prod.sh
+  - bash ./docker-deploy-stage.sh
+  - bash ./docker-deploy-prod.sh
