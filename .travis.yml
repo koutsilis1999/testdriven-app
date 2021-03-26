@@ -14,7 +14,7 @@ env:
   CLIENT: test-driven-client
   CLIENT_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/client
   SWAGGER: test-driven-swagger
-  SWAGGER_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/ca
+  SWAGGER_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/swagger
   SECRET_KEY: my_precious
 
 before_install:
