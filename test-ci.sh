@@ -14,18 +14,18 @@ inspect() {
 dev() {
   sudo docker-compose up -d --build
   sudo docker-compose exec users python manage.py test
-  # inspect $? users
+  inspect $? users
   sudo docker-compose exec users flake8 project
-  # inspect $? users-lint
+  inspect $? users-lint
   sudo docker-compose exec client npm test -- --coverage
-  # inspect $? client
+  inspect $? client
   sudo docker-compose down
 }
 
 # run e2e tests
 e2e() {
-  sudo docker-compose -f docker-compose-$1.yml up -d --build
-  sudo docker-compose -f docker-compose-$1.yml run users python manage.py recreate_db
+  sudo docker-compose -f docker-compose-stage.yml up -d --build
+  sudo docker-compose -f docker-compose-stage.yml exec users python manage.py recreate_db
   ./node_modules/.bin/cypress run --config baseUrl=http://127.0.0.1
   inspect $? e2e
   sudo docker-compose -f docker-compose-$1.yml down
@@ -41,9 +41,6 @@ elif [[ "${env}" == "staging" ]]; then
 elif [[ "${env}" == "production" ]]; then
   echo "Running e2e tests!"
   e2e prod
-else
-  echo "Running client and server-side tests!"
-  dev
 fi
 
 # return proper code

@@ -15,7 +15,6 @@ COPY package.json /usr/src/app/package.json
 COPY package-lock.json /usr/src/app/package-lock.json
 RUN npm install -g npm@latest
 RUN npm ci
-RUN npm audit fix --force
 RUN npm config set unsafe-perm true
 RUN npm install react-scripts@2.1.8 -g --silent
 
