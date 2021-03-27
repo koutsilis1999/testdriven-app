@@ -1,6 +1,7 @@
 from project.tests.base import BaseTestCase
 from project.tests.utils import add_exercise
 
+
 class TestExerciseModel(BaseTestCase):
 
     def test_add_exercise(self):
