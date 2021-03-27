@@ -17,6 +17,10 @@ dev() {
   inspect $? users
   sudo docker-compose exec users flake8 project
   inspect $? users-lint
+  sudo docker-compose exec exercises python manage.py test
+  inspect $? exercises
+  sudo docker-compose exec exercises flake8 project
+  inspect $? exercises-lint
   sudo docker-compose exec client npm test -- --coverage
   inspect $? client
   sudo docker-compose down

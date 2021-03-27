@@ -17,6 +17,10 @@ server() {
   inspect $? users
   sudo docker-compose exec users flake8 project
   inspect $? users-lint
+  sudo docker-compose exec exercises python manage.py test
+  inspect $? exercises
+  sudo docker-compose exec exercises flake8 project
+  inspect $? exercises-lint
   sudo docker-compose down
 }
 
@@ -29,7 +33,6 @@ client() {
 }
 
 # run e2e tests
-# new
 e2e() {
   sudo docker-compose -f docker-compose-stage.yml up -d --build
   sudo docker-compose -f docker-compose-stage.yml exec users python manage.py recreate_db
@@ -45,6 +48,10 @@ all() {
   inspect $? users
   sudo docker-compose exec users flake8 project
   inspect $? users-lint
+  sudo docker-compose exec exercises python manage.py test
+  inspect $? exercises
+  sudo docker-compose exec exercises flake8 project
+  inspect $? exercises-lint
   sudo docker-compose exec client npm test -- --coverage
   inspect $? client
   sudo docker-compose down
