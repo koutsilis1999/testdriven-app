@@ -38,17 +38,21 @@ const NavBar = (props) => (
               User Status
             </Link>
           )}
+          <a href="/swagger" className="navbar-item">
+            Swagger
+          </a>
         </div>
         <div className="navbar-end">
           {!props.isAuthenticated && (
-            <Link to="/register" className="navbar-item">
-              Register
-            </Link>
-          )}
-          {!props.isAuthenticated && (
-            <Link to="/login" className="navbar-item">
-              Log In
-            </Link>
+            <div className="navbar-item">
+              <Link to="/register" className="button is-primary">
+                Register
+              </Link>
+              &nbsp;
+              <Link to="/login" className="button is-link">
+                Log In
+              </Link>
+            </div>
           )}
           {props.isAuthenticated && (
             <Link to="/logout" className="navbar-item">

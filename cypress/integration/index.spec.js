@@ -8,6 +8,7 @@ describe("Index", () => {
       .get('a').not('Log Out')
       .get('a').contains('Register')
       .get('a').contains('Log In')
+      .get('a').contains('Swagger')  
       .not('.notification.is-success');
   });
 });
