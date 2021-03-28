@@ -39,6 +39,6 @@ describe('Exercises', () => {
     cy
       .get('button').contains('Run Code').click()
       .wait(600)
-      .get('h5 > .grade-text').contains('Incorrect!');
+      .get('grade-text').contains('Incorrect!');
   });
 });
