@@ -62,7 +62,7 @@ services:
     environment:
       - NODE_ENV=development
       - REACT_APP_USERS_SERVICE_URL=${REACT_APP_USERS_SERVICE_URL}
-      - REACT_APP_API_GATEWAY_URL=${REACT_APP_API_GATEWAY_URL}
+      - REACT_APP_API_GATEWAY_URL=https://362kr45rp1.execute-api.us-west-1.amazonaws.com/v1/execute
       - REACT_APP_EXERCISES_SERVICE_URL=${REACT_APP_EXERCISES_SERVICE_URL}
     depends_on:
       - users

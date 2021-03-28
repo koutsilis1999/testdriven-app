@@ -34,7 +34,7 @@ before_install:
 before_script:
   - export REACT_APP_USERS_SERVICE_URL=http://127.0.0.1
   - export REACT_APP_EXERCISES_SERVICE_URL=http://127.0.0.1
-  - export REACT_APP_API_GATEWAY_URL=https://362kr45rp1.execute-api.us-west-1.amazonaws.com/v1
+  - export REACT_APP_API_GATEWAY_URL=https://362kr45rp1.execute-api.us-west-1.amazonaws.com/v1/execute
   - npm install -g npm@latest 
   - npm audit fix --force
   - npm install
