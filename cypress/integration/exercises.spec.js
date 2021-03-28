@@ -17,7 +17,7 @@ describe('Exercises', () => {
   it('should allow a user to submit an exercise if logged in', () => {
     cy.server();
     cy.route('POST', 'auth/register').as('createUser');
-    cy.route('POST', 'https://362kr45rp1.execute-api.us-west-1.amazonaws.com/v1/execute').as('gradeExercise');
+    cy.route('POST', Cypress.env('REACT_APP_API_GATEWAY_URL')).as('gradeExercise');
 
     // register a new user
     cy
