@@ -4,7 +4,7 @@
         "name": "exercises",
         "image": "%s.dkr.ecr.us-west-1.amazonaws.com/test-driven-exercises:staging",
         "essential": true,
-        "memoryReservation": 300,
+        "memoryReservation": 500,
         "portMappings": [
           {
             "hostPort": 0,
