@@ -2,7 +2,9 @@ from project import db
 
 
 class Exercise(db.Model):
+
     __tablename__ = "exercises"
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     body = db.Column(db.String, nullable=False)
     test_code = db.Column(db.String, nullable=False)
