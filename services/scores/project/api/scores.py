@@ -1,3 +1,6 @@
+# services/scores/project/api/scores.py
+
+
 from sqlalchemy import exc
 from flask import Blueprint, request, jsonify
 from flask_restful import Resource, Api
@@ -158,6 +161,5 @@ class ScoreViaUser(Resource):
 
 api.add_resource(ScoresList, '/scores')
 api.add_resource(ScoresViaUser, '/scores/user')
-
 api.add_resource(ScoreViaExercise, '/scores/<exercise_id>')
 api.add_resource(ScoreViaUser, '/scores/user/<score_id>')

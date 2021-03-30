@@ -19,6 +19,7 @@ class Exercises extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.submitExercise = this.submitExercise.bind(this);
+    this.updateScore = this.updateScore.bind(this);
   }
   onChange(value) {
     const newState = this.state.editor;
@@ -60,9 +61,11 @@ class Exercises extends Component {
         newState.button.isDisabled = false;
         if (res.data && !res.data.errorType) {
           newState.showCorrect = true;
+          this.updateScore(exercise.id, true);
         }
         if (!res.data || res.data.errorType) {
           newState.showIncorrect = true;
+          this.updateScore(exercise.id, false);
         }
         this.setState(newState);
       })
@@ -70,6 +73,26 @@ class Exercises extends Component {
         newState.showGrading = false;
         newState.button.isDisabled = false;
         console.log(err);
+        this.updateScore(exercise.id, false);
+      });
+  }
+
+  updateScore(exerciseID, bool) {
+    const options = {
+      url: `${process.env.REACT_APP_SCORES_SERVICE_URL}/scores/${exerciseID}`,
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.authToken}`,
+      },
+      data: { correct: bool },
+    };
+    return axios(options)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
   render() {

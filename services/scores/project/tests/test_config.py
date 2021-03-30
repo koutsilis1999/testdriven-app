@@ -1,4 +1,4 @@
-# project/tests/test_config.py
+# services/scores/project/tests/test_config.py
 
 
 import unittest

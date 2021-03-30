@@ -1,9 +1,12 @@
+# services/scores/project/api/models.py
+
+
 from project import db
 
 
 class Score(db.Model):
 
-    __tablename__ = "scores"
+    __tablename__ = 'scores'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, nullable=False)
@@ -16,7 +19,7 @@ class Score(db.Model):
         self.correct = correct
 
     def to_json(self):
-        return{
+        return {
             'id': self.id,
             'user_id': self.user_id,
             'exercise_id': self.exercise_id,
