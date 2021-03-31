@@ -5,7 +5,10 @@ const email = `${username}@test.com`;
 const password = "greaterthanten";
 
 describe("Message", () => {
-  it(`should display flash messages correctly`, () => {
+  it("should display flash messages correctly", () => {
+    cy.server(); // new
+    cy.route("POST", "auth/login").as("loginUser"); // new
+
     // register user
     cy.visit("/register")
       .get('input[name="username"]')
@@ -23,8 +26,6 @@ describe("Message", () => {
       .get(".delete")
       .click();
 
-    cy.get(".notification.is-success").should("not.exist");
-
     // log a user out
     cy.get(".navbar-burger").click();
     cy.contains("Log Out").click();
@@ -39,8 +40,9 @@ describe("Message", () => {
       .click();
 
     // assert correct message is flashed
-    cy.get(".notification.is-success").should("not.exist");
-    cy.get(".notification.is-danger").contains("User does not exist.");
+    cy.not(".notification.is-success")
+      .get(".notification.is-danger")
+      .contains("User does not exist.");
 
     // log a user in
     cy.get('input[name="email"]')
@@ -51,11 +53,11 @@ describe("Message", () => {
       .type(password)
       .get('input[type="submit"]')
       .click()
-      .wait(100);
+      .wait("@loginUser");
 
     // assert flash message is removed when a new message is flashed
-    cy.get(".notification.is-success").contains("Welcome!");
-    cy.get(".notification.is-danger").should("not.exist");
+    cy.get(".notification.is-success")
+      .contains("Welcome!");
 
     // log a user out
     cy.get(".navbar-burger").click();
@@ -70,10 +72,12 @@ describe("Message", () => {
       .type(password)
       .get('input[type="submit"]')
       .click()
-      .wait(100);
+      .wait("@loginUser"); // new
 
     // // assert flash message is removed after three seconds
-    // cy.get(".notification.is-success").contains("Welcome!").wait(4000);
-    // cy.get(".notification.is-success").should("not.exist");
+    // cy.get(".notification.is-success")
+    //   .contains("Welcome!")
+    //   .wait(4000)
+    //   .not(".notification.is-success");
   });
 });

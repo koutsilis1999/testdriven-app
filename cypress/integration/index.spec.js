@@ -4,27 +4,43 @@ const username = randomstring.generate();
 const email = `${username}@test.com`;
 const password = "greaterthanten";
 
-it("should display the page correctly if a user is not logged in", () => {
-  cy.visit("/")
-    .get("h1")
+it("should display the page correctly if a user is logged in", () => {
+  cy.server();
+  cy.route("POST", "auth/register").as("createUser");
+
+  // register user
+  cy.visit("/register")
+    .get('input[name="username"]')
+    .type(username)
+    .get('input[name="email"]')
+    .type(email)
+    .get('input[name="password"]')
+    .type(password)
+    .get('input[type="submit"]')
+    .click()
+    .wait("@createUser");
+
+  // assert '/' is displayed properly
+  cy.get("h1")
     .contains("Exercises")
     .get(".navbar-burger")
     .click()
     .get("a")
-    .not("User Status")
+    .contains("User Status")
     .get("a")
-    .not("Log Out")
+    .contains("Log Out")
     .get("a")
-    .contains("Register")
+    .not("Register")
     .get("a")
-    .contains("Log In")
+    .not("Log In")
     .get("a")
     .contains("Swagger")
     .get("a")
     .contains("Users")
-    .get(".notification.is-warning")
-    .contains("Please log in to submit an exercise.")
-    .not(".notification.is-success");
+    .get(".navbar-burger")
+    .click() // new
+    .get("button")
+    .contains("Run Code");
 });
 
 it("should display the page correctly if a user is logged in`", () => {
@@ -61,7 +77,5 @@ it("should display the page correctly if a user is logged in`", () => {
     .get("a")
     .contains("Users")
     .get("button")
-    .contains("Run Code")
-    .not(".notification.is-warning")
-    .not(".notification.is-success");
+    .contains("Run Code");
 });
