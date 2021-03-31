@@ -40,9 +40,7 @@ describe("Message", () => {
       .click();
 
     // assert correct message is flashed
-    cy.not(".notification.is-success")
-      .get(".notification.is-danger")
-      .contains("User does not exist.");
+    cy.get(".notification.is-danger").contains("User does not exist.");
 
     // log a user in
     cy.get('input[name="email"]')
@@ -56,8 +54,7 @@ describe("Message", () => {
       .wait("@loginUser");
 
     // assert flash message is removed when a new message is flashed
-    cy.get(".notification.is-success")
-      .contains("Welcome!");
+    cy.get(".notification.is-success").contains("Welcome!");
 
     // log a user out
     cy.get(".navbar-burger").click();
